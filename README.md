@@ -5,11 +5,13 @@ Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATI
 
 ## Fork features
 
-- Make calculation of height and width inverse, that is, the way it is convenient for me
-- Disable `calculator_button` in css
-- Use flex(dynamic) width for all buttons
-- Add resolution presets by formula: `f(x) = 512 + (1024-512)/4*x, 0 <= x <= 4 `
-- Add ratios presets
+- Make calculation of height and width inverse, that is, the way it is convenient for me (1024x1024 and 16:9 = 1024x576)
+- Disable `Calculator` button in css
+- New styles for buttons
+- Better resolution presets (by formula: `f(x) = 512 + (1024-512)/4*x, 0 <= x <= 4`)
+- Better ratios presets
+
+![img](https://media.discordapp.net/attachments/1124006750392156160/1124006750664798278/image.png)
 
 
 ## Updates
