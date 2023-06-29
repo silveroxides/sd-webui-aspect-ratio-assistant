@@ -34,12 +34,12 @@ class ARButton(ToolButton):
 
     def apply(self, w, h):
         if self.ar > 1.0:  # fix height, change width
-            w = self.ar * h
-        elif self.ar < 1.0:  # fix width, change height
             h = w / self.ar
-        else:  # set minimum dimension to both
-            min_dim = min([w, h])
-            w, h = min_dim, min_dim
+        elif self.ar < 1.0:  # fix width, change height
+            w = h * self.ar
+        else:
+            new_value = max([w, h])
+            w, h = new_value, new_value
 
         return list(map(round, [w, h]))
 
@@ -110,10 +110,11 @@ def parse_resolutions_file(filename):
 # TODO: write a generic function handling both cases
 def write_aspect_ratios_file(filename):
     aspect_ratios = [
-        "1:1, 1.0 # 1:1 ratio based on minimum dimension\n",
-        "3:2, 3/2 # Set width based on 3:2 ratio to height\n",
-        "4:3, 4/3 # Set width based on 4:3 ratio to height\n",
-        "16:9, 16/9 # Set width based on 16:9 ratio to height",
+        "1:1, 1.0\n",
+        "3:2, 3/2\n",
+        "4:3, 4/3\n",
+        "16:9, 16/9\n",
+        "21:9, 21/9\n",
     ]
     with open(filename, "w", encoding="utf-8") as f:
         f.writelines(aspect_ratios)
@@ -121,9 +122,11 @@ def write_aspect_ratios_file(filename):
 
 def write_resolutions_file(filename):
     resolutions = [
-        "1, 512, 512 # 1:1 square\n",
-        "2, 768, 512 # 3:2 landscape\n",
-        "3, 403, 716 # 9:16 portrait",
+        "512, 512, 512\n",
+        "640, 640, 640\n",
+        "768, 768, 768\n",
+        "896, 896, 896\n",
+        "1024, 1024, 1024",
     ]
     with open(filename, "w", encoding="utf-8") as f:
         f.writelines(resolutions)

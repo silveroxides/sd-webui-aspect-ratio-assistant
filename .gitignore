@@ -1,2 +1,5 @@
 **/*.swp
 **/.mypy_cache
+*.py[cod]
+aspect_ratios.txt
+resolutions.txt
