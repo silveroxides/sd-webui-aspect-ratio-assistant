@@ -1,5 +1,8 @@
 # Stable Diffusion WebUI Aspect Ratio selector
 
+Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui.git) adding image aspect ratio selector buttons.
+
+
 ## Fork features
 
 - Make calculation of height and width inverse, that is, the way it is convenient for me
@@ -8,8 +11,6 @@
 - Add resolution presets by formula: `f(x) = 512 + (1024-512)/4*x, 0 <= x <= 4 `
 - Add ratios presets
 
-
-Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui.git) adding image aspect ratio selector buttons.
 
 ## Updates
 
