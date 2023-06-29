@@ -1,5 +1,14 @@
 # Stable Diffusion WebUI Aspect Ratio selector
 
+## Fork features
+
+Make calculation of height and width inverse, that is, the way it is convenient for me
+Disable `calculator_button` in css
+Use flex(dynamic) width for all buttons
+Add resolution presets by formula: `f(x) = 512 + (1024-512)/4*x, 0 <= x <= 4 `
+Add ratios presets
+
+
 Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui.git) adding image aspect ratio selector buttons.
 
 ## Updates
@@ -52,7 +61,7 @@ Aspect ratios can be defined in the `/sd-webui-ar/aspect_ratios.txt` file. For e
 # PV, 4.0 # polyvision
 ```
 
-Note the `#` marking the line as a comment, i.e. the extension is not reading that line. To use a custom value, un-comment the relative line by removing the starting `#`. 
+Note the `#` marking the line as a comment, i.e. the extension is not reading that line. To use a custom value, un-comment the relative line by removing the starting `#`.
 A custom aspect ratio is defined as `button-label, aspect-ratio-value # comment`. It is recommended to set the `aspect-ratio-value` to a fraction, but a `float` or `int` will work as well. The `# comment` is optional.
 The `button-label` will be displayed inside the button. It can be anything you like.
 
@@ -61,7 +70,7 @@ Resolutions presets are defined inside `resolutions.txt` file,
 ```
 1, 512, 512 # 1:1 square
 2, 768, 512 # 3:2 landscape
-3, 403, 716 # 9:16 portrait 
+3, 403, 716 # 9:16 portrait
 ```
 
 The format to be used is `button-label, width, height, # optional comment`. As before, lines starting with `#` will be ignored.
@@ -76,5 +85,5 @@ Use the calculator to determine new width or height values based on the aspect r
 - Click ⇅ to swap the width and height, if desired
 - Set the desired width or height, then click either `Calculate Height` or `Calculate Width` to calculate the missing value
 - Click `Apply` to send the values to the txt2txt/img2img sliders
---- 
+---
 <img width="666" style="border: solid 3px black;" alt="Basic usage of aspect ratio calculator" src="https://user-images.githubusercontent.com/121050401/229391634-4ec06027-e603-4672-bad9-ec77647b0941.gif">
