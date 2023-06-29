@@ -1,5 +1,7 @@
 #txt2img_container_aspect_ratio {
 	gap: 5px !important;
+	margin-top: 3px;
+	margin-bottom: 3px;
 }
 
 #txt2img_row_aspect_ratio button,
