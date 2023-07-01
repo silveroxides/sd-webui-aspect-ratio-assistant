@@ -10,7 +10,7 @@ Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATI
 - Better resolution presets (by formula: `f(x) = 512 + (1024-512)/4*x, 0 <= x <= 4`)
 - Better ratios presets
 
-![img](https://media.discordapp.net/attachments/1124020774055981108/1124503350856130620/image.png)
+![img](https://media.discordapp.net/attachments/1124020774055981108/1124647367644295229/image.png)
 
 
 ## Updates

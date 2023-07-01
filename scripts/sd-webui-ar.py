@@ -110,11 +110,11 @@ def parse_resolutions_file(filename):
 # TODO: write a generic function handling both cases
 def write_aspect_ratios_file(filename):
     aspect_ratios = [
-        "1:1, 1.0\n",
-        "3:2, 3/2\n",
-        "4:3, 4/3\n",
-        "16:9, 16/9\n",
-        "21:9, 21/9\n",
+        "3:2, 3/2      # Photography\n",
+        "4:3, 4/3      # Television photography\n",
+        "16:9, 16/9    # Television photography\n",
+        "1.85:1, 1.85  # Cinematography\n",
+        "2.39:1, 2.39  # Cinematography",
     ]
     with open(filename, "w", encoding="utf-8") as f:
         f.writelines(aspect_ratios)
@@ -122,11 +122,11 @@ def write_aspect_ratios_file(filename):
 
 def write_resolutions_file(filename):
     resolutions = [
-        "512, 512, 512\n",
-        "640, 640, 640\n",
-        "768, 768, 768\n",
-        "896, 896, 896\n",
-        "1024, 1024, 1024",
+        "512, 512, 512     # 512x512\n",
+        "640, 640, 640     # 640x640\n",
+        "768, 768, 768     # 768x768\n",
+        "896, 896, 896     # 896x896\n",
+        "1024, 1024, 1024  # 1024x1024",
     ]
     with open(filename, "w", encoding="utf-8") as f:
         f.writelines(resolutions)
@@ -224,10 +224,7 @@ class AspectRatioScript(scripts.Script):
             with gr.Row(
                 elem_id=f'{"img" if is_img2img else "txt"}2img_row_aspect_ratio'
             ):
-                gr.HTML(
-                    visible=True,
-                    elem_id="arc_empty_space",
-                )
+                arc_empty_space = ARButton(ar=1.0, value="1:1", elem_id="arc_empty_space")
 
                 # Aspect Ratio buttons
                 btns = [
@@ -236,7 +233,7 @@ class AspectRatioScript(scripts.Script):
                         self.aspect_ratios,
                         self.aspect_ratio_labels,
                     )
-                ]
+                ] + [arc_empty_space]
 
                 with contextlib.suppress(AttributeError):
                     for b in btns:
