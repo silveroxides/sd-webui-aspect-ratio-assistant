@@ -9,11 +9,11 @@ from modules.ui_components import ToolButton
 from math import gcd
 
 BASE_PATH = scripts.basedir()
-CALCULATOR_SYMBOL = "\U0001F5A9"  # 🖩
+CALCULATOR_SYMBOL = "\U0001F4D0"  # 📐
 SWITCH_VALUES_SYMBOL = "\U000021C5"  # ⇅
 DIMENSIONS_SYMBOL = "\u2B07\ufe0f"  # ⬇️
 IMAGE_DIMENSIONS_SYMBOL = "\U0001F5BC"  # 🖼
-REVERSE_LOGIC_SYMBOL = "\U0001F6E0" # 🛠
+REVERSE_LOGIC_SYMBOL = "\U0001F9ED"  # 🧭
 
 is_reverse_logic_mode = False  # Fixme: Global value
 
