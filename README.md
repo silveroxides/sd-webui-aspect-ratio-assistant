@@ -5,7 +5,8 @@ Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATI
 
 ## Fork features
 
-- **Make calculation of height and width inverse, that is, the way it is convenient for me (1024x1024 and 16:9 = 1024x576)**
+- New button(`🛠`) for calculation of height and width inverse (1024x1024 and 16:9 = 1024x576)
+- Replace name of Calc button to `🖩`
 - New styles for buttons
 - Better resolution presets (by formula: `f(x) = 512 + (1024-512)/4*x, 0 <= x <= 4`)
 - Better ratios presets
