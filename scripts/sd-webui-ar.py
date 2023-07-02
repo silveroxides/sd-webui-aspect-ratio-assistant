@@ -8,12 +8,14 @@ from modules.ui_components import ToolButton
 
 from math import gcd
 
-aspect_ratios_dir = scripts.basedir()
+BASE_PATH = scripts.basedir()
+CALCULATOR_SYMBOL = "\U0001F4D0"  # 📐
+SWITCH_VALUES_SYMBOL = "\U000021C5"  # ⇅
+DIMENSIONS_SYMBOL = "\u2B07\ufe0f"  # ⬇️
+IMAGE_DIMENSIONS_SYMBOL = "\U0001F5BC"  # 🖼
+REVERSE_LOGIC_SYMBOL = "\U0001F503"  # 🔃
 
-calculator_symbol = "\U0001F5A9"
-switch_values_symbol = "\U000021C5"
-get_dimensions_symbol = "\u2B07\ufe0f"
-get_image_dimensions_symbol = "\U0001F5BC"
+is_reverse_logic_mode = False  # Fixme: Global value
 
 
 class ResButton(ToolButton):
@@ -33,15 +35,31 @@ class ARButton(ToolButton):
         self.ar = ar
 
     def apply(self, w, h):
-        if self.ar > 1.0:  # fix height, change width
+        if is_reverse_logic_mode:
+            w, h = self._reverse_calculate_sides(w, h)
+        else:
+            w, h = self._calculate_sides(w, h)
+        return list(map(round, [w, h]))
+
+    def _reverse_calculate_sides(self, w, h):
+        if self.ar > 1.0:
             h = w / self.ar
-        elif self.ar < 1.0:  # fix width, change height
+        elif self.ar < 1.0:
             w = h * self.ar
         else:
             new_value = max([w, h])
             w, h = new_value, new_value
+        return w, h
 
-        return list(map(round, [w, h]))
+    def _calculate_sides(self, w, h):
+        if self.ar > 1.0:
+            w = h * self.ar
+        elif self.ar < 1.0:
+            h = w / self.ar
+        else:
+            new_value = min([w, h])
+            w, h = new_value, new_value
+        return w, h
 
     def reset(self, w, h):
         return [self.res, self.res]
@@ -49,7 +67,7 @@ class ARButton(ToolButton):
 
 def parse_aspect_ratios_file(filename):
     labels, values, comments = [], [], []
-    file = Path(aspect_ratios_dir, filename)
+    file = Path(BASE_PATH, filename)
 
     if not file.exists():
         return labels, values, comments
@@ -78,7 +96,7 @@ def parse_aspect_ratios_file(filename):
 
 def parse_resolutions_file(filename):
     labels, values, comments = [], [], []
-    file = Path(aspect_ratios_dir, filename)
+    file = Path(BASE_PATH, filename)
 
     if not file.exists():
         return labels, values, comments
@@ -133,7 +151,7 @@ def write_resolutions_file(filename):
 
 
 def write_js_titles_file(button_titles):
-    filename = Path(aspect_ratios_dir, "javascript", "button_titles.js")
+    filename = Path(BASE_PATH, "javascript", "button_titles.js")
     content = [
         "// Do not put custom titles here. This file is overwritten each time the WebUI is started.\n"
     ]
@@ -182,7 +200,7 @@ def solve_aspect_ratio(w, h, n, d):
 
 class AspectRatioScript(scripts.Script):
     def read_aspect_ratios(self):
-        ar_file = Path(aspect_ratios_dir, "aspect_ratios.txt")
+        ar_file = Path(BASE_PATH, "aspect_ratios.txt")
         if not ar_file.exists():
             write_aspect_ratios_file(ar_file)
 
@@ -201,7 +219,7 @@ class AspectRatioScript(scripts.Script):
         # see https://github.com/alemelis/sd-webui-ar/issues/5
 
     def read_resolutions(self):
-        res_file = Path(aspect_ratios_dir, "resolutions.txt")
+        res_file = Path(BASE_PATH, "resolutions.txt")
         if not res_file.exists():
             write_resolutions_file(res_file)
 
@@ -224,19 +242,30 @@ class AspectRatioScript(scripts.Script):
             with gr.Row(
                 elem_id=f'{"img" if is_img2img else "txt"}2img_row_aspect_ratio'
             ):
-                arc_empty_space = ARButton(ar=1.0, value="1:1", elem_id="arc_empty_space")
+                arc_show_logic = ToolButton(
+                    value=REVERSE_LOGIC_SYMBOL,
+                    visible=True,
+                    variant="secondary",
+                    elem_id="arc_show_logic_button",
+                )
+                arc_hide_logic = ToolButton(
+                    value=REVERSE_LOGIC_SYMBOL,
+                    visible=False,
+                    variant="primary",
+                    elem_id="arc_hide_logic_button",
+                )
 
                 # Aspect Ratio buttons
-                btns = [
+                ar_btns = [
                     ARButton(ar=ar, value=label)
                     for ar, label in zip(
                         self.aspect_ratios,
                         self.aspect_ratio_labels,
                     )
-                ] + [arc_empty_space]
+                ]
 
                 with contextlib.suppress(AttributeError):
-                    for b in btns:
+                    for b in ar_btns:
                         if is_img2img:
                             resolution = [self.i2i_w, self.i2i_h]
                         else:
@@ -253,14 +282,14 @@ class AspectRatioScript(scripts.Script):
                 elem_id=f'{"img" if is_img2img else "txt"}2img_row_resolutions'
             ):
                 # Toggle calculator display button
-                arc_show_calculator = gr.Button(
-                    value="Calc",
+                arc_show_calculator = ToolButton(
+                    value=CALCULATOR_SYMBOL,
                     visible=True,
                     variant="secondary",
                     elem_id="arc_show_calculator_button",
                 )
-                arc_hide_calculator = gr.Button(
-                    value="Calc",
+                arc_hide_calculator = ToolButton(
+                    value=CALCULATOR_SYMBOL,
                     visible=False,
                     variant="primary",
                     elem_id="arc_hide_calculator_button",
@@ -313,7 +342,7 @@ class AspectRatioScript(scripts.Script):
                             elem_id=f'{"img" if is_img2img else "txt"}2img_arc_tool_buttons'
                         ):
                             # Switch resolution values button
-                            arc_swap = ToolButton(value=switch_values_symbol)
+                            arc_swap = ToolButton(value=SWITCH_VALUES_SYMBOL)
                             arc_swap.click(
                                 lambda w, h, w2, h2: (h, w, h2, w2),
                                 inputs=[
@@ -336,7 +365,7 @@ class AspectRatioScript(scripts.Script):
                                     # Get slider dimensions button
                                     resolution = [self.i2i_w, self.i2i_h]
                                     arc_get_img2img_dim = ToolButton(
-                                        value=get_dimensions_symbol
+                                        value=DIMENSIONS_SYMBOL
                                     )
                                     arc_get_img2img_dim.click(
                                         lambda w, h: (w, h),
@@ -380,7 +409,7 @@ class AspectRatioScript(scripts.Script):
 
                                     # Get image dimensions button
                                     arc_get_image_dim = ToolButton(
-                                        value=get_image_dimensions_symbol
+                                        value=IMAGE_DIMENSIONS_SYMBOL
                                     )
                                     arc_get_image_dim.click(
                                         fn=get_dims,
@@ -394,7 +423,7 @@ class AspectRatioScript(scripts.Script):
                                     # Get slider dimensions button
                                     resolution = [self.t2i_w, self.t2i_h]
                                     arc_get_txt2img_dim = ToolButton(
-                                        value=get_dimensions_symbol
+                                        value=DIMENSIONS_SYMBOL
                                     )
                                     arc_get_txt2img_dim.click(
                                         lambda w, h: (w, h),
@@ -479,6 +508,38 @@ class AspectRatioScript(scripts.Script):
                 None,
                 [arc_panel, arc_show_calculator, arc_hide_calculator],
             )
+
+
+            def _arc_show_logic_update():
+                global is_reverse_logic_mode
+                is_reverse_logic_mode = not is_reverse_logic_mode
+
+                return [
+
+                    arc_show_logic.update(visible=False),
+                    arc_hide_logic.update(visible=True),
+                ]
+
+
+            def _arc_hide_logic_update():
+                global is_reverse_logic_mode
+                is_reverse_logic_mode = not is_reverse_logic_mode
+                return [
+                    arc_show_logic.update(visible=True),
+                    arc_hide_logic.update(visible=False),
+                ]
+
+            arc_show_logic.click(
+                _arc_show_logic_update,
+                None,
+                [arc_show_logic, arc_hide_logic],
+            )
+            arc_hide_logic.click(
+                _arc_hide_logic_update,
+                None,
+                [arc_show_logic, arc_hide_logic],
+            )
+
 
     # https://github.com/AUTOMATIC1111/stable-diffusion-webui/pull/7456#issuecomment-1414465888
     def after_component(self, component, **kwargs):
