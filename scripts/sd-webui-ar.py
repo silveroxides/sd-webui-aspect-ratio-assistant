@@ -17,7 +17,7 @@ REVERSE_LOGIC_SYMBOL = "\U0001F503"  # 🔃
 ROUND_SYMBOL = "\U0001F50D"  # 🔍
 IMAGE_ROUNDING_MULTIPLIER = 4
 
-is_reverse_logic_mode = False  # Fixme: Global value
+is_reverse_logic_mode = False  # FIXME: Global value
 
 
 class ResButton(ToolButton):
@@ -339,7 +339,7 @@ class AspectRatioScript(scripts.Script):
                         arc_desired_height = gr.Number(label="Height 2")
 
                     with gr.Column(min_width=150):
-                        arc_ar_display = gr.Markdown(value="Aspect Ratio:")
+                        arc_ar_display = gr.Markdown(value="Aspect Ratio:", elem_id="arc_ar_display_text")
                         with gr.Row(
                             elem_id=f'{"img" if is_img2img else "txt"}2img_arc_tool_buttons'
                         ):
