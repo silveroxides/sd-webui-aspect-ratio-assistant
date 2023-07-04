@@ -12,8 +12,9 @@ Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATI
 - New styles for buttons
 - Better resolution presets (by formula: `f(x) = 512 + (1024-512)/4*x, 0 <= x <= 4`)
 - Better ratios presets
+- New button `🔍` for rounding dimensions to the nearest multiples of 4 (`1023x101` => `1024x100`)
 
-![img](https://media.discordapp.net/attachments/1124020774055981108/1125090516980203570/image.png)
+![img](https://media.discordapp.net/attachments/1124020774055981108/1125719548587417630/image.png)
 
 
 ## Updates
