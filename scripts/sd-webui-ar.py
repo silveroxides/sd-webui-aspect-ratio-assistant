@@ -14,6 +14,8 @@ SWITCH_VALUES_SYMBOL = "\U000021C5"  # ⇅
 DIMENSIONS_SYMBOL = "\u2B07\ufe0f"  # ⬇️
 IMAGE_DIMENSIONS_SYMBOL = "\U0001F5BC"  # 🖼
 REVERSE_LOGIC_SYMBOL = "\U0001F503"  # 🔃
+ROUND_SYMBOL = "\U0001F50D"  # 🔍
+IMAGE_ROUNDING_MULTIPLIER = 4
 
 is_reverse_logic_mode = False  # Fixme: Global value
 
@@ -358,11 +360,8 @@ class AspectRatioScript(scripts.Script):
                                     arc_desired_height,
                                 ],
                             )
-
                             with contextlib.suppress(AttributeError):
-                                # For img2img tab
                                 if is_img2img:
-                                    # Get slider dimensions button
                                     resolution = [self.i2i_w, self.i2i_h]
                                     arc_get_img2img_dim = ToolButton(
                                         value=DIMENSIONS_SYMBOL
@@ -372,7 +371,21 @@ class AspectRatioScript(scripts.Script):
                                         inputs=resolution,
                                         outputs=[arc_width1, arc_height1],
                                     )
+                                else:
+                                    resolution = [self.t2i_w, self.t2i_h]
+                                    arc_get_txt2img_dim = ToolButton(
+                                        value=DIMENSIONS_SYMBOL
+                                    )
+                                    arc_get_txt2img_dim.click(
+                                        lambda w, h: (w, h),
+                                        inputs=resolution,
+                                        outputs=[arc_width1, arc_height1],
+                                    )
 
+                            arc_round = ToolButton(value=ROUND_SYMBOL)
+
+                            if is_img2img:
+                                with contextlib.suppress(AttributeError):
                                     # Javascript function to select image element from current img2img tab
                                     current_tab_image = """
                                         function current_tab_image(...args) {
@@ -418,19 +431,6 @@ class AspectRatioScript(scripts.Script):
                                         _js=current_tab_image,
                                     )
 
-                                else:
-                                    # For txt2img tab
-                                    # Get slider dimensions button
-                                    resolution = [self.t2i_w, self.t2i_h]
-                                    arc_get_txt2img_dim = ToolButton(
-                                        value=DIMENSIONS_SYMBOL
-                                    )
-                                    arc_get_txt2img_dim.click(
-                                        lambda w, h: (w, h),
-                                        inputs=resolution,
-                                        outputs=[arc_width1, arc_height1],
-                                    )
-
                     # Update aspect ratio display on change
                     arc_width1.change(
                         lambda w, h: (f"Aspect Ratio: **{get_reduced_ratio(w,h)}**"),
@@ -474,6 +474,33 @@ class AspectRatioScript(scripts.Script):
                             outputs=resolution,
                         )
 
+            def _arc_show_logic_update():
+                global is_reverse_logic_mode
+                is_reverse_logic_mode = not is_reverse_logic_mode
+
+                return [
+                    arc_show_logic.update(visible=False),
+                    arc_hide_logic.update(visible=True),
+                ]
+
+            def _arc_hide_logic_update():
+                global is_reverse_logic_mode
+                is_reverse_logic_mode = not is_reverse_logic_mode
+
+                return [
+                    arc_show_logic.update(visible=True),
+                    arc_hide_logic.update(visible=False),
+                ]
+
+            arc_round.click(
+                lambda w, h: (
+                    round_to_multiple(w, multiple=IMAGE_ROUNDING_MULTIPLIER),
+                    round_to_multiple(h, multiple=IMAGE_ROUNDING_MULTIPLIER),
+                ),
+                inputs=[arc_desired_width, arc_desired_height],
+                outputs=[arc_desired_width, arc_desired_height],
+            )
+
             # Show calculator pane (and reset number input values)
             arc_show_calculator.click(
                 lambda: [
@@ -509,26 +536,6 @@ class AspectRatioScript(scripts.Script):
                 [arc_panel, arc_show_calculator, arc_hide_calculator],
             )
 
-
-            def _arc_show_logic_update():
-                global is_reverse_logic_mode
-                is_reverse_logic_mode = not is_reverse_logic_mode
-
-                return [
-
-                    arc_show_logic.update(visible=False),
-                    arc_hide_logic.update(visible=True),
-                ]
-
-
-            def _arc_hide_logic_update():
-                global is_reverse_logic_mode
-                is_reverse_logic_mode = not is_reverse_logic_mode
-                return [
-                    arc_show_logic.update(visible=True),
-                    arc_hide_logic.update(visible=False),
-                ]
-
             arc_show_logic.click(
                 _arc_show_logic_update,
                 None,
@@ -563,3 +570,7 @@ class AspectRatioScript(scripts.Script):
             self.image.append(component)
         if kwargs.get("elem_id") == "img_inpaint_base":
             self.image.append(component)
+
+
+def round_to_multiple(x, multiple):
+    return multiple * round(x / multiple)
