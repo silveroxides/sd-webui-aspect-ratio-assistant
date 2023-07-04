@@ -17,7 +17,7 @@ REVERSE_LOGIC_SYMBOL = "\U0001F503"  # 🔃
 ROUND_SYMBOL = "\U0001F50D"  # 🔍
 IMAGE_ROUNDING_MULTIPLIER = 4
 
-is_reverse_logic_mode = False  # Fixme: Global value
+is_reverse_logic_mode = False  # FIXME: Global value
 
 
 class ResButton(ToolButton):
