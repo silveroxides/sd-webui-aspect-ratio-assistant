@@ -486,6 +486,7 @@ class AspectRatioScript(scripts.Script):
             def _arc_hide_logic_update():
                 global is_reverse_logic_mode
                 is_reverse_logic_mode = not is_reverse_logic_mode
+
                 return [
                     arc_show_logic.update(visible=True),
                     arc_hide_logic.update(visible=False),
