@@ -474,6 +474,24 @@ class AspectRatioScript(scripts.Script):
                             outputs=resolution,
                         )
 
+            def _arc_show_logic_update():
+                global is_reverse_logic_mode
+                is_reverse_logic_mode = not is_reverse_logic_mode
+
+                return [
+
+                    arc_show_logic.update(visible=False),
+                    arc_hide_logic.update(visible=True),
+                ]
+
+            def _arc_hide_logic_update():
+                global is_reverse_logic_mode
+                is_reverse_logic_mode = not is_reverse_logic_mode
+                return [
+                    arc_show_logic.update(visible=True),
+                    arc_hide_logic.update(visible=False),
+                ]
+
             # Show calculator pane (and reset number input values)
             arc_show_calculator.click(
                 lambda: [
@@ -508,26 +526,6 @@ class AspectRatioScript(scripts.Script):
                 None,
                 [arc_panel, arc_show_calculator, arc_hide_calculator],
             )
-
-
-            def _arc_show_logic_update():
-                global is_reverse_logic_mode
-                is_reverse_logic_mode = not is_reverse_logic_mode
-
-                return [
-
-                    arc_show_logic.update(visible=False),
-                    arc_hide_logic.update(visible=True),
-                ]
-
-
-            def _arc_hide_logic_update():
-                global is_reverse_logic_mode
-                is_reverse_logic_mode = not is_reverse_logic_mode
-                return [
-                    arc_show_logic.update(visible=True),
-                    arc_hide_logic.update(visible=False),
-                ]
 
             arc_show_logic.click(
                 _arc_show_logic_update,
