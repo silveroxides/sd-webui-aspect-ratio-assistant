@@ -479,7 +479,6 @@ class AspectRatioScript(scripts.Script):
                 is_reverse_logic_mode = not is_reverse_logic_mode
 
                 return [
-
                     arc_show_logic.update(visible=False),
                     arc_hide_logic.update(visible=True),
                 ]
