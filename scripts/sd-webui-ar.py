@@ -14,6 +14,8 @@ SWITCH_VALUES_SYMBOL = "\U000021C5"  # ⇅
 DIMENSIONS_SYMBOL = "\u2B07\ufe0f"  # ⬇️
 IMAGE_DIMENSIONS_SYMBOL = "\U0001F5BC"  # 🖼
 REVERSE_LOGIC_SYMBOL = "\U0001F503"  # 🔃
+ROUND_SYMBOL = "\U0001F522"  # 🔢
+IMAGE_ROUNDING_MULTIPLIER = 4
 
 is_reverse_logic_mode = False  # Fixme: Global value
 
@@ -358,6 +360,7 @@ class AspectRatioScript(scripts.Script):
                                     arc_desired_height,
                                 ],
                             )
+                            arc_round = ToolButton(value=ROUND_SYMBOL)
 
                             with contextlib.suppress(AttributeError):
                                 # For img2img tab
@@ -491,6 +494,15 @@ class AspectRatioScript(scripts.Script):
                     arc_show_logic.update(visible=True),
                     arc_hide_logic.update(visible=False),
                 ]
+
+            arc_round.click(
+                lambda w, h: (
+                    round_to_multiple(w, multiple=IMAGE_ROUNDING_MULTIPLIER),
+                    round_to_multiple(h, multiple=IMAGE_ROUNDING_MULTIPLIER),
+                ),
+                inputs=[arc_desired_width, arc_desired_height],
+                outputs=[arc_desired_width, arc_desired_height],
+            )
 
             # Show calculator pane (and reset number input values)
             arc_show_calculator.click(
