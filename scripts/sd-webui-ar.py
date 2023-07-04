@@ -563,3 +563,7 @@ class AspectRatioScript(scripts.Script):
             self.image.append(component)
         if kwargs.get("elem_id") == "img_inpaint_base":
             self.image.append(component)
+
+
+def round_to_multiple(x, multiple):
+    return multiple * round(x / multiple)
