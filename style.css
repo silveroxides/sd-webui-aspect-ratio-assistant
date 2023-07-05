@@ -29,7 +29,7 @@ button#arc_hide_logic_button {
 	padding: var(--size-0-5) var(--size-2) !important;
 }
 
-/* TODO: Use gradio instead */
+/* TODO: Use gradio instead if posible */
 #arc_ar_display_text {
 	height: 22px;
 	overflow: hidden !important;
