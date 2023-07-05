@@ -157,7 +157,7 @@ def write_js_titles_file(button_titles):
     content = [
         "// Do not put custom titles here. This file is overwritten each time the WebUI is started.\n"
     ]
-    content.append("ar_button_titles = {\n")
+    content.append("arsp__ar_button_titles = {\n")
     counter = 0
     while counter < len(button_titles[0]):
         content.append(
@@ -238,23 +238,23 @@ class AspectRatioScript(scripts.Script):
 
     def ui(self, is_img2img):
         with gr.Column(
-            elem_id=f'{"img" if is_img2img else "txt"}2img_container_aspect_ratio'
+            elem_id=f'arsp__{"img" if is_img2img else "txt"}2img_container_aspect_ratio'
         ):
             self.read_aspect_ratios()
             with gr.Row(
-                elem_id=f'{"img" if is_img2img else "txt"}2img_row_aspect_ratio'
+                elem_id=f'arsp__{"img" if is_img2img else "txt"}2img_row_aspect_ratio'
             ):
                 arc_show_logic = ToolButton(
                     value=REVERSE_LOGIC_SYMBOL,
                     visible=True,
                     variant="secondary",
-                    elem_id="arc_show_logic_button",
+                    elem_id="arsp__arc_show_logic_button",
                 )
                 arc_hide_logic = ToolButton(
                     value=REVERSE_LOGIC_SYMBOL,
                     visible=False,
                     variant="primary",
-                    elem_id="arc_hide_logic_button",
+                    elem_id="arsp__arc_hide_logic_button",
                 )
 
                 # Aspect Ratio buttons
@@ -281,20 +281,20 @@ class AspectRatioScript(scripts.Script):
 
             self.read_resolutions()
             with gr.Row(
-                elem_id=f'{"img" if is_img2img else "txt"}2img_row_resolutions'
+                elem_id=f'arsp__{"img" if is_img2img else "txt"}2img_row_resolutions'
             ):
                 # Toggle calculator display button
                 arc_show_calculator = ToolButton(
                     value=CALCULATOR_SYMBOL,
                     visible=True,
                     variant="secondary",
-                    elem_id="arc_show_calculator_button",
+                    elem_id="arsp__arc_show_calculator_button",
                 )
                 arc_hide_calculator = ToolButton(
                     value=CALCULATOR_SYMBOL,
                     visible=False,
                     variant="primary",
-                    elem_id="arc_hide_calculator_button",
+                    elem_id="arsp__arc_hide_calculator_button",
                 )
 
                 btns = [
@@ -326,7 +326,7 @@ class AspectRatioScript(scripts.Script):
 
             # Aspect Ratio Calculator
             with gr.Column(
-                visible=False, variant="panel", elem_id="arc_panel"
+                visible=False, variant="panel", elem_id="arsp__arc_panel"
             ) as arc_panel:
                 arc_title_heading = gr.Markdown(value="#### Aspect Ratio Calculator")
                 with gr.Row():
@@ -339,9 +339,9 @@ class AspectRatioScript(scripts.Script):
                         arc_desired_height = gr.Number(label="Height 2")
 
                     with gr.Column(min_width=150):
-                        arc_ar_display = gr.Markdown(value="Aspect Ratio:", elem_id="arc_ar_display_text")
+                        arc_ar_display = gr.Markdown(value="Aspect Ratio:", elem_id="arsp__arc_ar_display_text")
                         with gr.Row(
-                            elem_id=f'{"img" if is_img2img else "txt"}2img_arc_tool_buttons'
+                            elem_id=f'arsp__{"img" if is_img2img else "txt"}2img_arc_tool_buttons'
                         ):
                             # Switch resolution values button
                             arc_swap = ToolButton(value=SWITCH_VALUES_SYMBOL)

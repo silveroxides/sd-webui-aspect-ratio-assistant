@@ -1,36 +1,36 @@
-#txt2img_container_aspect_ratio,
-#img2img_container_aspect_ratio {
+#arsp__txt2img_container_aspect_ratio,
+#arsp__img2img_container_aspect_ratio {
 	gap: 5px !important;
 	margin-top: 3px;
 	margin-bottom: 3px;
 }
 
-#txt2img_row_aspect_ratio,
-#txt2img_row_resolutions,
-#img2img_row_aspect_ratio,
-#img2img_row_resolutions {
+#arsp__txt2img_row_aspect_ratio,
+#arsp__txt2img_row_resolutions,
+#arsp__img2img_row_aspect_ratio,
+#arsp__img2img_row_resolutions {
 	gap: 8px;
 }
 
-#txt2img_row_aspect_ratio button,
-#txt2img_row_resolutions button,
-#img2img_row_aspect_ratio button,
-#img2img_row_resolutions button {
+#arsp__txt2img_row_aspect_ratio button,
+#arsp__txt2img_row_resolutions button,
+#arsp__img2img_row_aspect_ratio button,
+#arsp__img2img_row_resolutions button {
 	gap: 10px !important;
 	max-width: unset !important;
 }
 
-button#arc_show_calculator_button,
-button#arc_hide_calculator_button,
-button#arc_show_logic_button,
-button#arc_hide_logic_button {
+button#arsp__arc_show_calculator_button,
+button#arsp__arc_hide_calculator_button,
+button#arsp__arc_show_logic_button,
+button#arsp__arc_hide_logic_button {
 	max-width: 40px !important;
 	min-width: unset !important;
 	padding: var(--size-0-5) var(--size-2) !important;
 }
 
 /* TODO: Use gradio instead if posible */
-#arc_ar_display_text {
+#arsp__arc_ar_display_text {
 	height: 22px;
 	overflow: hidden !important;
 }
