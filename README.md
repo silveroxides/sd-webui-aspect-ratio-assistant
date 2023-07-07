@@ -9,11 +9,11 @@ Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATI
   - Normal mode: `1024x1024 and 16:9 = 1820x1024`
   - Reverse mode: `1024x1024 and 16:9 = 1024x576`
 - New button `🔍` for rounding dimensions to the nearest multiples of 4 (`1023x101` => `1024x100`)
+- New styles
 - Better resolution presets (by formula: `f(x) = 512 + (1024-512)/4*x, 0 <= x <= 4`)
-- Better ratios presets (by [wikipedia](https://en.m.wikipedia.org/wiki/Aspect_ratio_(image)))
+- Better ratios presets (from [wikipedia](https://en.wikipedia.org/wiki/Aspect_ratio_(image)))
 - Rename `Calc` button to `📐`
 - Works with the original extension
-- ~~New styles for buttons~~ https://github.com/alemelis/sd-webui-ar/pull/18
 
 ![img](https://media.discordapp.net/attachments/1124020774055981108/1125719548587417630/image.png)
 
