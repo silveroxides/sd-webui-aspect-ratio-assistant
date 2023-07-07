@@ -8,11 +8,12 @@ Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATI
 - New button `🔃` for calculation of height and width inverse
   - Normal mode: `1024x1024 and 16:9 = 1820x1024`
   - Reverse mode: `1024x1024 and 16:9 = 1024x576`
-- Replace name of `Calc` button to `📐`
-- New styles for buttons
-- Better resolution presets (by formula: `f(x) = 512 + (1024-512)/4*x, 0 <= x <= 4`)
-- Better ratios presets
 - New button `🔍` for rounding dimensions to the nearest multiples of 4 (`1023x101` => `1024x100`)
+- New styles (Some styles have been moved to the original extension)
+- Better resolution presets (By formula: `f(x) = 512 + (1024-512)/4*x, 0 <= x <= 4`)
+- Better ratios presets (From [wikipedia](https://en.wikipedia.org/wiki/Aspect_ratio_(image)))
+- Rename `Calc` button to `📐`
+- Works with the original extension
 
 ![img](https://media.discordapp.net/attachments/1124020774055981108/1125719548587417630/image.png)
 
