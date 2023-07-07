@@ -13,7 +13,7 @@ Extension for [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATI
 - Better resolution presets (By formula: `f(x) = 512 + (1024-512)/4*x, 0 <= x <= 4`)
 - Better ratios presets (From [wikipedia](https://en.wikipedia.org/wiki/Aspect_ratio_(image)))
 - Rename `Calc` button to `📐`
-- Works with the original extension
+- Can work together with the original extension
 
 ![img](https://media.discordapp.net/attachments/1124020774055981108/1125719548587417630/image.png)
 
