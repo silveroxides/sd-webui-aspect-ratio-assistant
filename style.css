@@ -40,11 +40,9 @@ button#arsp__arc_hide_logic_button {
 .hide.svelte-1ipelgc {
 	display: none !important;
 }
-
 .primary.svelte-1ipelgc {
 	background: var(--button-primary-background-fill) !important;
 }
-
 .secondary.svelte-1ipelgc {
 	background: var(--button-secondary-background-fill) !important;
 }
