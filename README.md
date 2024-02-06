@@ -38,7 +38,7 @@ Here's how the UI looks like after installing this extension
 
 ### Configuration
 
-Aspect ratios can be defined in the `/sd-webui-ar/aspect_ratios.txt` file. For example,
+Aspect ratios can be defined in the [`aspect_ratios.txt`](https://github.com/silveroxides/sd-webui-aspect-ratio-assistant/blob/main/aspect_ratios.txt) file. For example,
 
 ```
 1:1, 1.0
@@ -72,7 +72,7 @@ Note the `#` marking the line as a comment, i.e. the extension is not reading th
 A custom aspect ratio is defined as `button-label, aspect-ratio-value # comment`. It is recommended to set the `aspect-ratio-value` to a fraction, but a `float` or `int` will work as well. The `# comment` is optional.
 The `button-label` will be displayed inside the button. It can be anything you like.
 
-Resolutions presets are defined inside `resolutions.txt` file,
+Resolutions presets are defined inside [`resolutions.txt`](https://github.com/silveroxides/sd-webui-aspect-ratio-assistant/blob/main/resolutions.txt) file,
 
 ```
 1, 512, 512 # 1:1 square
