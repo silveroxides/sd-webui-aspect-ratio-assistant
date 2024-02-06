@@ -1,3 +1,9 @@
 1, 512, 512 # 1:1 square
 2, 768, 512 # 3:2 landscape
 3, 403, 716 # 9:16 portrait
+fb, 1200, 630 # 1.905:1 facebook post
+insta, 1080, 1080 # 1:1 instagram standard
+stories, 1080, 1920 # 9:16 fb/insta stories
+fbcover, 830, 312 # 2.628:1 facebook cover photo
+twcover, 1500, 500 # 3:1 twitter cover photo
+twphoto, 1200, 675 # 16:9 twitter image post
