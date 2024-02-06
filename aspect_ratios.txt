@@ -1,0 +1,25 @@
+1:1, 1.0
+3:2, 3/2
+4:3, 4/3
+16:9, 16/9
+# 6:13, 6/13
+# 9:16, 9/16
+# 3:5, 3/5
+# 2:3, 2/3
+# 19:16, 19/16 # fox movietone
+# 5:4, 5/4 # medium format photo
+# 11:8, 11/8 # academy standard
+# IMAX, 1.43
+# 14:9, 14/9
+# 16:10, 16/10
+# 𝜑, 1.6180 # golden ratio
+# 5:3, 5/3 # super 16mm
+# 1.85, 1.85 # US widescreen cinema
+# DCI, 1.9 # digital imax
+# 2:1, 2.0 # univisium
+# 70mm, 2.2
+# 21:9, 21/9 # cinematic wide screen
+# δ, 2.414 # silver ratio
+# UPV70, 2.76 # ultra panavision 70
+# 32:9, 32/9 # ultra wide screen
+# PV, 4.0 # polyvision
