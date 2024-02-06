@@ -139,6 +139,37 @@ def write_aspect_ratios_file(filename):
     with open(filename, "w", encoding="utf-8") as f:
         f.writelines(aspect_ratios)
 
+def modify_aspect_ratios_file(filename):
+    # Define the new aspect ratios
+    aspect_ratios = [
+        "3:2, 3/2      # Photography\n",
+        "4:3, 4/3      # Television photography\n",
+        "16:9, 16/9    # Television photography\n",
+        "1.85:1, 1.85  # Cinematography\n",
+        "2.39:1, 2.39  # Cinematography",
+    ]
+
+    # Read the existing file content
+    existing_content_ar = []
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            existing_content_ar = f.readlines()
+    except FileNotFoundError:
+        pass  # File doesn't exist yet; no need to remove anything
+
+    # Remove lines that match the new aspect ratios
+    updated_content_ar = [line for line in existing_content_ar if line not in aspect_ratios]
+
+    # Append the new aspect ratios
+    updated_content_ar.extend(aspect_ratios)
+
+    # Write the updated content back to the file
+    with open(filename, "w", encoding="utf-8") as f:
+        f.writelines(updated_content_ar)
+
+# Example usage:
+# modify_aspect_ratios_file("aspect_ratios.txt")
+
 
 def write_resolutions_file(filename):
     resolutions = [
@@ -151,6 +182,36 @@ def write_resolutions_file(filename):
     with open(filename, "w", encoding="utf-8") as f:
         f.writelines(resolutions)
 
+def modify_resolutions_file(filename):
+    # Define the new resolutions
+    resolutions = [
+        "512, 512, 512     # 512x512\n",
+        "640, 640, 640     # 640x640\n",
+        "768, 768, 768     # 768x768\n",
+        "896, 896, 896     # 896x896\n",
+        "1024, 1024, 1024  # 1024x1024",
+    ]
+
+    # Read the existing file content
+    existing_content_res = []
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            existing_content_res = f.readlines()
+    except FileNotFoundError:
+        pass  # File doesn't exist yet; no need to remove anything
+
+    # Remove lines that match the new resolutions
+    updated_content_res = [line for line in existing_content_res if line not in resolutions]
+
+    # Append the new resolutions
+    updated_content_res.extend(resolutions)
+
+    # Write the updated content back to the file
+    with open(filename, "w", encoding="utf-8") as f:
+        f.writelines(updated_content_res)
+
+# Example usage:
+# modify_resolutions_file("resolutions.txt")
 
 def write_js_titles_file(button_titles):
     filename = Path(BASE_PATH, "javascript", "button_titles.js")
@@ -203,7 +264,9 @@ def solve_aspect_ratio(w, h, n, d):
 class AspectRatioScript(scripts.Script):
     def read_aspect_ratios(self):
         ar_file = Path(BASE_PATH, "aspect_ratios.txt")
-        if not ar_file.exists():
+        if ar_file.exists():
+            modify_aspect_ratios_file(ar_file)
+        else:
             write_aspect_ratios_file(ar_file)
 
         (
@@ -222,7 +285,9 @@ class AspectRatioScript(scripts.Script):
 
     def read_resolutions(self):
         res_file = Path(BASE_PATH, "resolutions.txt")
-        if not res_file.exists():
+        if res_file.exists():
+            modify_resolutions_file(res_file)
+        else:
             write_resolutions_file(res_file)
 
         self.res_labels, res, self.res_comments = parse_resolutions_file(
